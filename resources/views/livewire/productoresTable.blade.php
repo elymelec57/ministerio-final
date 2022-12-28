@@ -30,26 +30,37 @@
                     <th class="text-center">Acciones</th>
                   </tr>
               </thead>
+            @if (@count($productores) >= 1)
               <tbody>
-               @foreach ($productores as $productor)
-                  <tr>
-                      <td>{{$productor->name}}</td>
-                      <td>{{$productor->cedula}}</td>
-                      <td>{{$productor->telefono}}</td>
-                      <td>{{$productor->email}}</td>
-                      <td class="text-center">
-                        
-                        <button  wire:click="listHaciendas({{$productor->id}})" class="btn btn-success text-white btn-sm">Haciendas</button>
+                  @foreach ($productores as $productor)
+                    <tr>
+                        <td>{{$productor->name}}</td>
+                        <td>{{$productor->cedula}}</td>
+                        <td>{{$productor->telefono}}</td>
+                        <td>{{$productor->email}}</td>
+                        <td class="text-center">
+                          
+                          <button  wire:click="listHaciendas({{$productor->id}})" class="btn btn-success text-white btn-sm">Haciendas</button>
 
-                        @if(Auth::user()->rol == '1')
-                        <button  wire:click="editar({{$productor->id}})" class="btn btn-success text-white btn-sm">Editar</button>
-                        <button wire:click="modalProductor({{$productor->id}})" class="btn btn-danger text-white btn-sm">Eliminar</button>
-                        @endif
-                      </td>
-                      
-                  </tr>
-                 @endforeach
+                          @if(Auth::user()->rol == '1')
+                          <button  wire:click="editar({{$productor->id}})" class="btn btn-success text-white btn-sm"><i class="fas fa-edit"></i></button>
+                          <button wire:click="modalProductor({{$productor->id}})" class="btn btn-danger text-white btn-sm"><i class="fas fa-trash"></i></button>
+                          @endif
+                        </td>
+                    </tr>
+                  @endforeach
               </tbody>
+            @else
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td class="text-center">Ningun dato encotrado</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            @endif
             </table>
     </div>
 

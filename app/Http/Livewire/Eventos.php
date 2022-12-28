@@ -7,14 +7,16 @@ use App\Models\Evento;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class Eventos extends Component
 {
     use WithFileUploads;
     public $eventos, $evento_id, $evento;
-    public $path;
     public $nombre, $slug, $slug2, $direccion, $apertura, $clausura, $hora, $file, $informacion;
     public $vista = 'form';
+    public $file2;
     public $mensaje, $abrir = false;
 
     public function render()
@@ -28,6 +30,11 @@ class Eventos extends Component
         return view('livewire.admin');
     }
 
+    public function ConsultaEventosPublicos(){
+        $evento = Evento::all()->orderByDesc('id')->get();
+        dd($evento);
+    }
+
     public function crear(){
 
         $this->validate([
@@ -36,13 +43,20 @@ class Eventos extends Component
             'apertura' => 'required',
             'clausura' => 'required',
             'hora' => 'required',
-            'file' => 'required',
+            'file' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'informacion' => 'required',
         ]);
 
         $name = $this->nombre; 
         $this->slug2 = Str::slug($name, '-');
-        $this->path = $this->file->store('public');
+
+        $image = $this->file;
+        $imgPost = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/storage/');
+        $imgFile = Image::make($image->getRealPath());
+        $imgFile->resize(250, 250);
+        $imgFile->save($destinationPath.$imgPost);
+        $path = '/storage/'.$imgPost; //$this->file->store('public');
 
         Evento::create([
             'nombre' => $name,
@@ -51,7 +65,7 @@ class Eventos extends Component
             'apertura' => $this->apertura,
             'clausura' => $this->clausura,
             'hora' => $this->hora,
-            'file' => $this->path,
+            'file' => $path,
             'informacion' => $this->informacion,
             'user_id' => Auth::user()->id
         ]);
@@ -72,7 +86,6 @@ class Eventos extends Component
 
     public function editar($id){
         $evento = Evento::find($id);
-
         $this->evento_id = $evento->id;
         $this->nombre = $evento->nombre;
         $this->direccion = $evento->direccion;
@@ -92,15 +105,21 @@ class Eventos extends Component
             'apertura' => 'required',
             'clausura' => 'required',
             'hora' => 'required',
-            'file' => 'required',
+            'file' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'informacion' => 'required',
         ]);
 
         $evento = Evento::find($this->evento_id);
-
-        $name = $this->nombre; 
+        $name = $this->nombre;
         $this->slug2 = Str::slug($name, '-');
-        $this->path = $this->file->store('public');
+
+        $image = $this->file;
+        $imgPost = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/storage/');
+        $imgFile = Image::make($image->getRealPath());
+        $imgFile->resize(250, 250);
+        $imgFile->save($destinationPath.$imgPost);
+        $path = '/storage/'.$imgPost; //$this->file->store('public');
 
         $evento->update([
             'nombre' => $name,
@@ -109,10 +128,12 @@ class Eventos extends Component
             'apertura' => $this->apertura,
             'clausura' => $this->clausura,
             'hora' => $this->hora,
-            'file' => $this->path,
+            'file' => $path,
             'informacion' => $this->informacion
         ]);
         $this->limpiarCampos();
+        $this->mensaje = 'Evento actualizado';
+        $this->emit('saved');
         $this->vista = 'form';
 
     }

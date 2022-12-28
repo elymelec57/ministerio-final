@@ -51,23 +51,36 @@
                     <th class="text-center">Acciones</th>
                   </tr>
               </thead>
-              <tbody>
-                @foreach($haciendas as $hacienda)
-                <tr>
-                    <td>{{$hacienda->name}}</td>
-                    <td>{{$hacienda->telefono}}</td>
-                    <td>{{$hacienda->hectaria}}</td>
-                    <td>Estado: {{$hacienda->estado}} <br/> Municipio: {{$hacienda->municipio}} <br/> Parroquia: {{$hacienda->parroquia}}</td>
-                    <td>{{$hacienda->direccion}}</td>
-                    <td class="text-center">
+              @if(@count($haciendas) >= 1)
+                <tbody>
+                  @foreach($haciendas as $hacienda)
+                  <tr>
+                      <td>{{$hacienda->name}}</td>
+                      <td>{{$hacienda->telefono}}</td>
+                      <td>{{$hacienda->hectaria}}</td>
+                      <td>Estado: {{$hacienda->estado}} <br/> Municipio: {{$hacienda->municipio}} <br/> Parroquia: {{$hacienda->parroquia}}</td>
+                      <td>{{$hacienda->direccion}}</td>
+                      <td class="text-center">
 
-                      @if(Auth::user()->rol == '2' || Auth::user()->rol == '1' || Auth::user()->rol == '0')
-                      <button  wire:click="ListProducciones({{$hacienda->id}})" class="btn btn-success text-white btn-sm">producciones</button>
-                      @endif
-                    </td> 
-                </tr>
-               @endforeach
-              </tbody>
+                        @if(Auth::user()->rol == '2' || Auth::user()->rol == '1' || Auth::user()->rol == '0')
+                        <button  wire:click="ListProducciones({{$hacienda->id}})" class="btn btn-success text-white btn-sm">producciones</button>
+                        @endif
+                      </td> 
+                  </tr>
+                @endforeach
+                </tbody>
+              @else
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center">Ningun dato encotrado</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              @endif
             </table>
   </div>
             {{$haciendas->links()}}          

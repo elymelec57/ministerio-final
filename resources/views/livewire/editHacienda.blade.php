@@ -15,13 +15,13 @@
           <div class="row mb-4">
             <div class="col">
               <label class="form-label" for="form3Example1">Nombre hacienda</label>
-              <input type="text" class="{{ $errors->has('nameHaciendaEdit') ? 'is-invalid' : '' }} form-control"  wire:model="nameHaciendaEdit"/>
+              <input type="text" class="{{ $errors->has('nameHaciendaEdit') ? 'is-invalid' : '' }} form-control"  wire:model.defer="nameHaciendaEdit"/>
               <x-jet-input-error for="nameHaciendaEdit"></x-jet-input-error>
           </div>
 
           <div class="col">
               <label class="form-label" for="form3Example1">telefono</label>
-              <input type="text" class="{{ $errors->has('telefonoEdit') ? 'is-invalid' : '' }} form-control" wire:model="telefonoEdit"/>
+              <input type="text" class="{{ $errors->has('telefonoEdit') ? 'is-invalid' : '' }} form-control" wire:model.defer="telefonoEdit"/>
               <x-jet-input-error for="telefonoEdit"></x-jet-input-error>
           </div>
         </div>
@@ -30,57 +30,18 @@
 
           <div class="col">
             <label class="form-label" for="form3Example1">hectaria</label>
-            <input type="text" class="{{ $errors->has('hectariaEdit') ? 'is-invalid' : '' }} form-control" wire:model="hectariaEdit"/>
+            <input type="text" class="{{ $errors->has('hectariaEdit') ? 'is-invalid' : '' }} form-control" wire:model.defer="hectariaEdit"/>
             <x-jet-input-error for="hectariaEdit"></x-jet-input-error>
           </div>
           
           <div class="col">
               <label class="form-label" for="form3Example1">Direccion</label>
-              <input type="text" class="{{ $errors->has('direccionEdit') ? 'is-invalid' : '' }} form-control"  wire:model="direccionEdit" />
+              <input type="text" class="{{ $errors->has('direccionEdit') ? 'is-invalid' : '' }} form-control"  wire:model.defer="direccionEdit" />
               <x-jet-input-error for="direccionEdit"></x-jet-input-error>
             </div>
         </div>
 
-        <div class="row mb-4">
-          <div class="col">
-            <div class="form-outline">
-
-              <select class="form-select" wire:model="selecEstado">
-                <option selected>Selecciona Estado</option>
-                @foreach ($estados as $estado)
-                  <option value="{{$estado->id}}">{{$estado->name}}</option>
-                @endforeach
-                <x-jet-input-error for="selecEstado"></x-jet-input-error>
-              </select>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-outline">
-              <select class="form-select" wire:model="selecMunicipio">
-                <option selected>Selecciona Municipio</option>
-                @if (!is_null($municipios))
-                    @foreach ($municipios as $municipio)
-                    <option value="{{$municipio->id}}">{{$municipio->name}}</option>
-                    @endforeach
-                @endif
-              </select>
-              <x-jet-input-error for="selecMunicipio"></x-jet-input-error>
-            </div>
-          </div>
-          <div class="col">
-              <div class="form-outline">
-                <select class="form-select" wire:model="selecParroquia">
-                  <option selected>Selecciona Parroquia</option>
-                  @if (!is_null($parroquias))
-                      @foreach ($parroquias as $parroquia)
-                      <option value="{{$parroquia->id}}">{{$parroquia->name}}</option>
-                      @endforeach
-                  @endif
-                </select>
-                <x-jet-input-error for="selecParroquia"></x-jet-input-error>
-              </div>
-            </div>     
-          </div>
+        @livewire('componentes.select-dinamicos-estados')
 
                   <div class='container-fluid'>
                     <div class="row ">

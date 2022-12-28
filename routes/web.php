@@ -10,6 +10,7 @@ use App\Http\Livewire\RegistrarProductor;
 use App\Http\Livewire\Buscar;
 use App\Http\Controllers\ProductorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\consultasPublicas;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,11 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/',[consultasPublicas::class,'index'])->name('welcome');
 
 //ruta para registrar el productor por medio de livewire
 Route::get('/registro',RegistrarProductor::class)->name('registro');

@@ -20,6 +20,7 @@
                     <th class="text-center">Acciones</th>
                   </tr>
               </thead>
+              @if (@count($haciendas) >= 1)
               <tbody>
                 @foreach($haciendas as $hacienda)
                 <tr>
@@ -36,18 +37,30 @@
                       
                       
                       @if(Auth::user()->rol == '0')
-                      <button  wire:click="editHacienda({{$hacienda->id}})" class="btn btn-success text-white btn-sm">Editar</button>
+                      <button  wire:click="editHacienda({{$hacienda->id}})" class="btn btn-success text-white btn-sm"><i class="fas fa-edit"></i></button>
                       @endif
 
                       @if(Auth::user()->rol == '1')
-                      <button  wire:click="editHacienda({{$hacienda->id}})" class="btn btn-success text-white btn-sm">Editar</button>
-                      <button wire:click="modalHacienda({{$hacienda->id}})" class="btn btn-danger text-white btn-sm">Eliminar</button>
+                      <button  wire:click="editHacienda({{$hacienda->id}})" class="btn btn-success text-white btn-sm"><i class="fas fa-edit"></i></button>
+                      <button wire:click="modalHacienda({{$hacienda->id}})" class="btn btn-danger text-white btn-sm"><i class="fas fa-trash"></i></button>
                       @endif
 
                     </td> 
                 </tr>
                @endforeach
               </tbody>
+              @else
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td class="text-center">Aun no hay haciendas registradas</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              @endif
             </table>
         </div>
             <div class="row">

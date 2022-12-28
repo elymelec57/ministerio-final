@@ -1,1 +1,0 @@
-<?php /**PATH /var/www/html/ministerio/resources/views/livewire/vacio.blade.php ENDPATH**/ ?>

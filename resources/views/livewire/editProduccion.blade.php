@@ -15,19 +15,19 @@
                 <div class="row mb-4">
                     <div class="col">
                       <label class="form-label" for="form3Example1">Fecha de siembra</label>
-                      <input type="date" class="{{ $errors->has('fechasiembraEdit') ? 'is-invalid' : '' }} form-control" wire:model="fechasiembraEdit" />
+                      <input type="date" class="{{ $errors->has('fechasiembraEdit') ? 'is-invalid' : '' }} form-control" wire:model.defer="fechasiembraEdit" />
                       <x-jet-input-error for="fechasiembraEdit"></x-jet-input-error>
                     </div>
 
                     <div class="col">
                         <label class="form-label" for="form3Example1">Fecha de cosecha</label>
-                        <input type="date" class="{{ $errors->has('fechacosechaEdit') ? 'is-invalid' : '' }} form-control" wire:model="fechacosechaEdit"/>
+                        <input type="date" class="{{ $errors->has('fechacosechaEdit') ? 'is-invalid' : '' }} form-control" wire:model.defer="fechacosechaEdit"/>
                         <x-jet-input-error for="fechacosechaEdit"></x-jet-input-error>
                     </div>
 
                     <div class="col">
                         <label class="form-label" for="form3Example1">Hectarias sembradas</label>
-                        <input type="text" class="{{ $errors->has('hectariaS_edit') ? 'is-invalid' : '' }}  form-control" wire:model="hectariaS_edit"/>
+                        <input type="text" class="{{ $errors->has('hectariaS_edit') ? 'is-invalid' : '' }}  form-control" wire:model.defer="hectariaS_edit"/>
                         <x-jet-input-error for="hectariaS_edit"></x-jet-input-error>
                     </div>
                 </div>
@@ -41,7 +41,9 @@
                               <option value="{{$grupo->id}}">{{$grupo->name}}</option>
                           @endforeach
                         </select>
-                        <x-jet-input-error for="selecGrupo"></x-jet-input-error>
+                        @if ($errors->has('selecGrupo'))
+                            <small style="color:#e3342f;  font-weight: bold">Seleccione grupo agricola</small>    
+                        @endif
                       </div>
                     </div>
                     <div class="col">
@@ -54,7 +56,9 @@
                               @endforeach
                           @endif
                         </select>
-                        <x-jet-input-error for="selecCultivo"></x-jet-input-error>
+                        @if ($errors->has('selecCultivo'))
+                            <small style="color:#e3342f;  font-weight: bold">Seleccione grupo agricola</small>    
+                        @endif
                       </div>
                     </div>
                     <div class="col">
@@ -65,7 +69,9 @@
                               <option value="{{$hacienda->id}}">{{$hacienda->name}}</option>
                             @endforeach
                           </select>
-                          <x-jet-input-error for="hacienda_id"></x-jet-input-error>
+                          @if ($errors->has('hacienda_id'))
+                            <small style="color:#e3342f;  font-weight: bold">Seleccione grupo agricola</small>    
+                        @endif
                         </div>
                       </div>
                   </div>

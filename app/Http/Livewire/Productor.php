@@ -8,9 +8,6 @@ use App\Http\Livewire\Haciendas;
 use App\Models\User;
 use App\Models\Hacienda;
 use App\Models\Produccion;
-use App\Models\Estado;
-use App\Models\Municipio;
-use App\Models\Parroquia;
 use App\Models\Grupo;
 use App\Models\Cultivo;
 use PDF;
@@ -24,7 +21,6 @@ class Productor extends Component
 
     // propiedades para usar los select para registrar hacienda
     public $selecEstado = null, $selecMunicipio = null, $selecParroquia = null;
-    public $municipios = null, $parroquias = null;
     public $estado = '', $municipio = '', $parroquia = '';
     // ========================
 
@@ -52,14 +48,17 @@ class Productor extends Component
     public $mensaje, $datos;
     public $p;
 
+    protected $listeners = ['estado','municipio','parroquia'];
+
     public function render()
     {
+        $this->emit('selectDinamicos');
+
         $productores =  User::select('id','name','cedula','telefono','email','created_at')
             ->where('cedula', 'like', '%'.$this->filtrar.'%')->latest()->paginate(6);
 
         return view('livewire.productor', [
             'productores' => $productores,
-            'estados' => Estado::all(),
             'gruposs' => Grupo::all(),
             'haciendass' => Hacienda::select('id','name')->where('user_id', $this->IdPro)->get()
         ]);
@@ -87,26 +86,20 @@ class Productor extends Component
         $this->vista4 = 'produccionesTable';
     }
 
-    // metodos para los select dinamicos de los municipio y parroquias 
-    public function updatedselecEstado($estado_id){
-        $this->municipios = Municipio::where('estado_id', $estado_id)->get();
-
-         // esta linea es para guardar el nombre del estado en la base de datos
-         $this->estado = Estado::find($estado_id);
+    // funciones de los eventos del componente selectDinamicosEstados
+    public function estado($estado){
+        $this->estado = $estado;
+        $this->selecEstado = true;
     }
-
-    public function updatedselecMunicipio($municipio_id){
-        $this->parroquias = Parroquia::where('municipio_id', $municipio_id)->get();
-
-         // esta linea es para guardar el nombre del municipio en la base de datos
-         $this->municipio = Municipio::find($municipio_id);
+    public function municipio($municipio){
+        $this->municipio = $municipio;
+        $this->selecMunicipio = true;
     }
-
-    public function updatedselecParroquia($parroquia_id){
-         // esta linea es para guardar el nombre de la parroquia en la base de datos
-         $this->parroquia = Parroquia::find($parroquia_id);
+    public function parroquia($parroquia){
+        $this->parroquia = $parroquia;
+        $this->selecParroquia = true; 
     }
-    // fin de los select
+    // fin
 
     // metodo para que el select cultivo tenga los datos segun el grupo agricola
     public function updatedselecGrupo($id_grupo){
@@ -181,9 +174,9 @@ class Productor extends Component
             'direccion' => $this->direccionEdit,
             'telefono' => $this->telefonoEdit,
             'hectaria' => $this->hectariaEdit,
-            'estado' => $this->estado->name,
-            'municipio' => $this->municipio->name,
-            'parroquia' => $this->parroquia->name,
+            'estado' => $this->estado['name'],
+            'municipio' => $this->municipio['name'],
+            'parroquia' => $this->parroquia['name'],
         ]);
         
         $this->mensaje = 'Hacienda actualizada';

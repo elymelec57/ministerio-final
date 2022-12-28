@@ -8,21 +8,21 @@
 
               <!--  <form class="row mt-3">-->
                 <label class="col-lg-4 text-center"><p class="btn-success text-white pt-1 mt-2">Nombre</p>
-                  <input type="text" wire:model="name"  name="name" class="form-control" value="{{old('name')}}">
+                  <input type="text" wire:model.defer="name"  name="name" class="form-control" value="{{old('name')}}">
                   @error('name')
                   <small>*{{$message}}</small>
                   @enderror
                 </label> 
                
                 <label class="col-lg-4 text-center"><p class="btn-success text-white pt-1 mt-2">Telefono</p>
-                  <input type="text" wire:model="telefono"   name="telefono" class="form-control" value="{{old('telefono')}}">
+                  <input type="text" wire:model.defer="telefono"   name="telefono" class="form-control" value="{{old('telefono')}}">
                   @error('telefono')
                   <small>*{{$message}}</small>
                   @enderror
                 </label> 
                
                 <label class="col-lg-4 text-center"><p class="btn-success text-white pt-1 mt-2">Email</p>
-                  <input type="email"  name="email" wire:model="email" class="form-control" value="{{old('email')}}">
+                  <input type="email"  name="email" wire:model.defer="email" class="form-control" value="{{old('email')}}">
                   @error('email')
                   <small>*{{$message}}</small>
                   @enderror

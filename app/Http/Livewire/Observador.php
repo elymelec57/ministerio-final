@@ -86,6 +86,7 @@ class Observador extends Component
         $this->mensaje = 'Observador actualizado';
         $this->emit('saved');
         $this->limpiarCampos();
+        $this->vista = 'formObservador';
     }
 
     public function abrirModal($id){

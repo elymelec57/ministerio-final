@@ -24,7 +24,7 @@ class Buscar extends Component
      public $municipios = null, $parroquias = null;
      public $estado1 = '', $municipio = '', $parroquia = '', $e, $m, $p;
 
-     public $nombreH, $producciones, $mensaje;
+     public $nombreH, $nombreP, $producciones, $mensaje;
      // ========================
 
     public $vista = 'haciendaBuscarTable';
@@ -65,6 +65,7 @@ class Buscar extends Component
 
         $id_produccion = $id;
         $this->nombreH = Hacienda::find($id);
+        $this->nombreP = User::select('name','cedula')->where('id',$this->nombreH->user_id)->first();
         $this->producciones = Produccion::where('hacienda_id', $id_produccion)->get();
         $this->vista = 'produccionesBuscarTable';
     }

@@ -10,13 +10,13 @@
           <div class="row mb-4">
                     <div class="col">
                         <label class="form-label" for="form3Example1">Nombre hacienda</label>
-                        <input type="text" class="{{ $errors->has('name') ? 'is-invalid' : '' }} form-control" wire:model="name"/>
+                        <input type="text" class="{{ $errors->has('name') ? 'is-invalid' : '' }} form-control" wire:model.defer="name"/>
                         <x-jet-input-error for="name"></x-jet-input-error>
                     </div>
 
                     <div class="col">
                         <label class="form-label" for="form3Example1">telefono</label>
-                        <input type="text" class="{{ $errors->has('telefono') ? 'is-invalid' : '' }} form-control" wire:model="telefono"/>
+                        <input type="text" class="{{ $errors->has('telefono') ? 'is-invalid' : '' }} form-control" wire:model.defer="telefono"/>
                         <x-jet-input-error for="telefono"></x-jet-input-error>
                     </div>
                   </div>
@@ -25,18 +25,20 @@
 
                     <div class="col">
                       <label class="form-label" for="form3Example1">hectaria</label>
-                      <input type="text" class="{{ $errors->has('hectaria') ? 'is-invalid' : '' }} form-control" wire:model="hectaria"/>
+                      <input type="text" class="{{ $errors->has('hectaria') ? 'is-invalid' : '' }} form-control" wire:model.defer="hectaria"/>
                       <x-jet-input-error for="hectaria"></x-jet-input-error>
                     </div>
-                    
+
                     <div class="col">
                         <label class="form-label" for="form3Example1">Direccion</label>
-                        <input type="text" class="{{ $errors->has('direccion') ? 'is-invalid' : '' }} form-control" wire:model="direccion" />
+                        <input type="text" class="{{ $errors->has('direccion') ? 'is-invalid' : '' }} form-control" wire:model.defer="direccion" />
                         <x-jet-input-error for="direccion"></x-jet-input-error>
                       </div>
                   </div>
-
-                  <div class="row mb-4">
+                
+                  @livewire('componentes.select-dinamicos-estados')
+                 
+                  {{--<div class="row mb-4">
                     <div class="col">
                       <div class="form-outline">
 
@@ -75,7 +77,7 @@
                           <x-jet-input-error for="selecParroquia"></x-jet-input-error>
                         </div>
                       </div>
-                  </div>
+                  </div>--}}
 
                   <div class='container-fluid'>
                     <div class="row ">

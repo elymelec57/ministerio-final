@@ -35,6 +35,7 @@ class Producciones extends Component
             'fechasiembra' => 'required',
             'fechacosecha' => 'required',
             'hectariaS' => 'required',
+            'selecGrupo' => 'required',
             'selecCultivo' => 'required',
             'hacienda_id' => 'required',
         ]);

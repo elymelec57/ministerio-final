@@ -12,7 +12,7 @@
         <section class="col-lg-8 ">
           <h3 class="display-6 text-center">Evento publicados</h3>
           <div class="row">
-
+            
             <x-jet-action-message on="saved">
               {{ $mensaje }}
             </x-jet-action-message> 
